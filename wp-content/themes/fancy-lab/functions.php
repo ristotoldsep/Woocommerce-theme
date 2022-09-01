@@ -17,4 +17,15 @@ function fancy_lab_scripts() {
 
 add_action('wp_enqueue_scripts', 'fancy_lab_scripts');
 
+function fancy_lab_config() {
+    register_nav_menus(
+        array(
+            'fancy_lab_main_menu' => 'Fancy Lab Main Menu',
+            'fancy_lab_footer_menu' => 'Fancy Lab Footer Menu'
+        )
+    );
+}
+
+add_action('after_setup_theme','fancy_lab_config',0 );
+
 ?>
