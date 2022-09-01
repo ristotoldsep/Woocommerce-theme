@@ -1,0 +1,1 @@
+* Custom Woocommerce theme coded from scratch!
