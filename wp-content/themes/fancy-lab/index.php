@@ -26,5 +26,4 @@ get_header();
             <section class="lab-blog">News</section>
         </main>
     </div>
-
 <?php get_footer(); ?>       
