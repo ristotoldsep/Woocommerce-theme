@@ -28,14 +28,14 @@ function fancy_lab_config() {
     //Adding woocommerce support to the theme
     add_theme_support('woocommerce', array(
         'thumbnail_image_width' => 255,
-        'single_image_width' => 255,
-        'product_grid' => array(
-            'default_rows' => 10,
-            'min_rows' => 5,
-            'max_rows' => 10,
+        'single_image_width'    => 255,
+        'product_grid'          => array(
+            'default_rows'    => 10,
+            'min_rows'        => 5,
+            'max_rows'        => 10,
             'default_columns' => 1,
-            'min_columns' => 1,
-            'max_columns' => 1,
+            'min_columns'     => 1,
+            'max_columns'     => 1,
         )
     ));
 
@@ -51,9 +51,47 @@ function fancy_lab_config() {
 
 add_action('after_setup_theme','fancy_lab_config', 0 );
 
-add_action('after_setup_theme', 'woocommerce_support');
-function woocommerce_support()
+// add_action('after_setup_theme', 'woocommerce_support');
+// function woocommerce_support()
+// {
+//     add_theme_support('woocommerce');
+// }
+
+add_action('woocommerce_before_main_content','fancy_lab_open_container_row', 5);
+
+function fancy_lab_open_container_row() {
+    echo '<div class="container shop-content"><div class="row">';
+}
+
+add_action('woocommerce_after_main_content', 'fancy_lab_close_container_row', 5);
+function fancy_lab_close_container_row()
 {
-    add_theme_support('woocommerce');
-} 
+    echo '</div></div>';
+}
+
+add_action('woocommerce_before_main_content','fancy_lab_add_sidebar_tags', 6);
+function fancy_lab_add_sidebar_tags() {
+    echo '<div class="sidebar-shop col-lg-3 col-md-4 order-2 order-md-1">';
+}
+
+remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar');
+add_action('woocommerce_before_main_content', 'woocommerce_get_sidebar', 7);
+
+add_action('woocommerce_before_main_content', 'fancy_lab_close_sidebar_tags', 8);
+function fancy_lab_close_sidebar_tags()
+{
+    echo '</div>';
+}
+
+add_action('woocommerce_before_main_content', 'fancy_lab_add_shop_tags', 9);
+function fancy_lab_add_shop_tags() {
+    echo '<div class="col-lg-9 col-md-8 order-1 order-md-2">';
+}
+
+add_action('woocommerce_after_main_content', 'fancy_lab_close_shop_tags', 4);
+function fancy_lab_close_shop_tags() {
+    echo '</div>';
+}
+
+
 ?>
