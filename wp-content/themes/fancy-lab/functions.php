@@ -24,8 +24,36 @@ function fancy_lab_config() {
             'fancy_lab_footer_menu' => 'Fancy Lab Footer Menu'
         )
     );
+
+    //Adding woocommerce support to the theme
+    add_theme_support('woocommerce', array(
+        'thumbnail_image_width' => 255,
+        'single_image_width' => 255,
+        'product_grid' => array(
+            'default_rows' => 10,
+            'min_rows' => 5,
+            'max_rows' => 10,
+            'default_columns' => 1,
+            'min_columns' => 1,
+            'max_columns' => 1,
+        )
+    ));
+
+    add_theme_support('wc-product-gallery-zoom' );
+    add_theme_support('wc-product-gallery-lightbox' );
+    add_theme_support('wc-product-gallery-slider' );
+
+    //Mandatory max content width by default
+    if (!isset($content_width)) {
+        $content_width = 600;
+    }
 }
 
-add_action('after_setup_theme','fancy_lab_config',0 );
+add_action('after_setup_theme','fancy_lab_config', 0 );
 
+add_action('after_setup_theme', 'woocommerce_support');
+function woocommerce_support()
+{
+    add_theme_support('woocommerce');
+} 
 ?>
