@@ -1,0 +1,36 @@
+2022-09-07T10:56:31+00:00 CRITICAL Uncaught Error: Call to undefined function get_cart_url() in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php:46
+Stack trace:
+#0 C:\xampp\htdocs\wc_course\wp-includes\template.php(770): require_once()
+#1 C:\xampp\htdocs\wc_course\wp-includes\template.php(716): load_template('C:\\xampp\\htdocs...', true, Array)
+#2 C:\xampp\htdocs\wc_course\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\xampp\htdocs\wc_course\wp-content\plugins\woocommerce\templates\archive-product.php(20): get_header('shop')
+#4 C:\xampp\htdocs\wc_course\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\wc_course\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\wc_course\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php on line 46
+
+2022-09-07T10:56:33+00:00 CRITICAL Uncaught Error: Call to undefined function get_cart_url() in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php:46
+Stack trace:
+#0 C:\xampp\htdocs\wc_course\wp-includes\template.php(770): require_once()
+#1 C:\xampp\htdocs\wc_course\wp-includes\template.php(716): load_template('C:\\xampp\\htdocs...', true, Array)
+#2 C:\xampp\htdocs\wc_course\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\xampp\htdocs\wc_course\wp-content\plugins\woocommerce\templates\archive-product.php(20): get_header('shop')
+#4 C:\xampp\htdocs\wc_course\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\wc_course\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\wc_course\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php on line 46
+
+2022-09-07T10:58:58+00:00 CRITICAL Uncaught Error: Call to undefined method WooCommerce::get_cart_contents_count() in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php:47
+Stack trace:
+#0 C:\xampp\htdocs\wc_course\wp-includes\template.php(770): require_once()
+#1 C:\xampp\htdocs\wc_course\wp-includes\template.php(716): load_template('C:\\xampp\\htdocs...', true, Array)
+#2 C:\xampp\htdocs\wc_course\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\xampp\htdocs\wc_course\wp-content\plugins\woocommerce\templates\archive-product.php(20): get_header('shop')
+#4 C:\xampp\htdocs\wc_course\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\wc_course\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#6 C:\xampp\htdocs\wc_course\index.php(17): require('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php on line 47
+

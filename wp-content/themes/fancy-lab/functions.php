@@ -23,21 +23,23 @@ function register_navwalker()
 }
 add_action('after_setup_theme', 'register_navwalker');
 
-function fancy_lab_scripts() {
+function fancy_lab_scripts()
+{
     //Bootstrap js and css files
-    wp_enqueue_script('bootstrap-js', get_template_directory_uri( ) . '/inc/bootstrap.min.js', array( 'jquery' ), '4.3.1', true ); //Bootstrap JS
-    wp_enqueue_style( 'bootstrap.css', get_template_directory_uri() . '/inc/bootstrap.min.css', '4.3.1','all' ); //Bootstrap CSS
+    wp_enqueue_script('bootstrap-js', get_template_directory_uri() . '/inc/bootstrap.min.js', array('jquery'), '4.3.1', true); //Bootstrap JS
+    wp_enqueue_style('bootstrap.css', get_template_directory_uri() . '/inc/bootstrap.min.css', '4.3.1', 'all'); //Bootstrap CSS
 
     //Main stylesheet
-    wp_enqueue_style( 'fancy-lab-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), 'all' ); //FILEMTIME TO DISABLE BROWSER CACHE (only during development)
+    wp_enqueue_style('fancy-lab-style', get_stylesheet_uri(), array(), filemtime(get_template_directory() . '/style.css'), 'all'); //FILEMTIME TO DISABLE BROWSER CACHE (only during development)
 
     //Google fonts
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap');
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap');
 }
 
 add_action('wp_enqueue_scripts', 'fancy_lab_scripts');
 
-function fancy_lab_config() {
+function fancy_lab_config()
+{
     register_nav_menus(
         array(
             'fancy_lab_main_menu' => 'Fancy Lab Main Menu',
@@ -59,9 +61,9 @@ function fancy_lab_config() {
         )
     ));
 
-    add_theme_support('wc-product-gallery-zoom' );
-    add_theme_support('wc-product-gallery-lightbox' );
-    add_theme_support('wc-product-gallery-slider' );
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
 
     //Mandatory max content width by default
     if (!isset($content_width)) {
@@ -69,11 +71,30 @@ function fancy_lab_config() {
     }
 }
 
-add_action('after_setup_theme','fancy_lab_config', 0 );
+add_action('after_setup_theme', 'fancy_lab_config', 0);
 
 //Only load these if WC is activated
-if ( class_exists( 'WooCommerce' )) {
+if (class_exists('WooCommerce')) {
     require get_template_directory() . '/inc/wc-modifications.php';
+}
+
+/**
+ * Show cart contents / total Ajax
+ */
+add_filter('woocommerce_add_to_cart_fragments', 'fancy_lab_woocommerce_header_add_to_cart_fragment');
+
+function fancy_lab_woocommerce_header_add_to_cart_fragment($fragments)
+{
+    global $woocommerce;
+
+    ob_start();
+
+?>
+    <span class="items"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+
+<?php
+    $fragments['span.items'] = ob_get_clean();
+    return $fragments;
 }
 
 ?>
