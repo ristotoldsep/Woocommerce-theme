@@ -34,3 +34,5 @@ Stack trace:
 #7 {main}
   thrown in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\header.php on line 47
 
+2022-09-07T16:00:44+00:00 CRITICAL Unclosed '{' on line 17 in C:\xampp\htdocs\wc_course\wp-content\themes\fancy-lab\template-home.php on line 72
+
