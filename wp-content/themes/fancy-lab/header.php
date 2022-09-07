@@ -26,6 +26,7 @@
 <body <?php body_class(); ?>>
     <div id="page" class="site">
         <header>
+            <!-- Search -->
             <section class="search">
                 <div class="container">
                     <div class="text-center d-md-flex align-items-center">
@@ -38,9 +39,20 @@
             <section class="top-bar">
                 <div class="container">
                     <div class="row">
-                        <div class="brand col-md-3 col-12 col-lg-2 text-center text-md-left">Logo</div>
+                    <!-- Logo  -->
+                        <div class="brand col-md-3 col-12 col-lg-2 text-center text-md-left">
+                            <a href="<?php echo home_url('/'); ?>">
+                                <?php if ( has_custom_logo() ) : ?>
+                                <?php the_custom_logo(); ?>
+                                <?php else: ?>
+                                    <p class="site-title"><?php bloginfo('title'); ?></p>
+                                    <span><?php bloginfo('description'); ?></span>
+                                <?php endif; ?>
+                            </a>    
+                        </div>
                         <div class="second-column col-md-9 col-12 col-lg-10">
                             <div class="row">
+                                <!-- Woocommerce nav -->
                                 <?php if( class_exists( 'WooCommerce' ) ) : ?>
                                     <div class="account col-12">
                                         <div class="navbar-expand">
@@ -59,13 +71,14 @@
                                                 <?php endif; ?>
                                             </ul>
                                         </div>
+                                        <!-- Cart -->
                                         <div class="cart text-right">
                                             <a href="<?php echo wc_get_cart_url(); ?>"><span class="cart-icon"></span></a>
                                             <span class="items"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
                                         </div>
                                     </div>
                                 <?php endif; ?>
-                                
+
                                 <div class="col-12">
                                     <nav class="main-menu navbar navbar-expand-md navbar-light" role="navigation">
                                         <!-- Brand and toggle get grouped for better mobile display -->

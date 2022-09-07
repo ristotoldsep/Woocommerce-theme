@@ -23,6 +23,9 @@ function register_navwalker()
 }
 add_action('after_setup_theme', 'register_navwalker');
 
+// Creating Custom customizer panels - for learning!
+require_once get_template_directory() . '/inc/customizer.php';
+
 function fancy_lab_scripts()
 {
     //Bootstrap js and css files
@@ -64,6 +67,13 @@ function fancy_lab_config()
     add_theme_support('wc-product-gallery-zoom');
     add_theme_support('wc-product-gallery-lightbox');
     add_theme_support('wc-product-gallery-slider');
+
+    add_theme_support('custom-logo', array(
+        'height' => 85,
+        'width' => 160,
+        'flex_height' => true,
+        'flex_width' => true,
+    ) );
 
     //Mandatory max content width by default
     if (!isset($content_width)) {
