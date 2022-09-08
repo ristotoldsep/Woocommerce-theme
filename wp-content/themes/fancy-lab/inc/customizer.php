@@ -318,7 +318,7 @@ function fancy_lab_customizer( $wp_customize ) {
 
     //DEAL OF THE WEEK CHECKBOX
     $wp_customize->add_setting(
-        'set_deal_of_the_week_id',
+        'show_deal_of_the_week',
         array(
             'type' => 'theme_mod',
             'default' => '',
@@ -327,7 +327,7 @@ function fancy_lab_customizer( $wp_customize ) {
     );
 
     $wp_customize->add_control(
-        'set_deal',
+        'show_deal_of_the_week',
         array(
             'label' => 'Show Deal of the Week?',
             'description' => 'Checked = show, Unchecked = Do Not Show',
@@ -339,7 +339,7 @@ function fancy_lab_customizer( $wp_customize ) {
 
     //DEAL OF THE WEEK PRODUCT ID
     $wp_customize->add_setting(
-        'set_deal',
+        'set_deal_of_the_week_id',
         array(
             'type' => 'theme_mod',
             'default' => '',

@@ -78,19 +78,57 @@ get_header();
                 <?php echo do_shortcode('[products limit="' . $new_arrivals_limit .'" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
             </div>
         </section>
+        <?php 
+        //DEAL OF THE WEEK
+
+            $showdealoftheweek = get_theme_mod('show_deal_of_the_week', 0);
+            $deal_of_the_week_product_id = get_theme_mod('set_deal_of_the_week_id');
+            $currency = get_woocommerce_currency_symbol();
+            $regular_price = get_post_meta( $deal_of_the_week_product_id, '_regular_price', true ); //Single value last option
+            $sale_price = get_post_meta ($deal_of_the_week_product_id, '_sale_price', true );
+            
+            if ( $showdealoftheweek == 1 && ( !empty($deal_of_the_week_product_id ) ) ) :
+                $discount_percentage = absint( 100 - ( ( $sale_price/$regular_price ) * 100 ) );
+        ?>
         <section class="deal-of-the-week">
             <div class="container">
                 <h2>Deal of the Week</h2>
                 <div class="row d-flex align-items-center">
                     <div class="deal-img col-md-6 col-12 ml-auto text-center">
-
+                        <?php echo get_the_post_thumbnail( $deal_of_the_week_product_id, 'large', array( 'class' => 'img-fluid' ) ); ?>
                     </div>
                     <div class="deal-desc col-md-4 col-12 mr-auto text-center">
-
+                        <?php if ( !empty ( $sale_price ) ) : ?>
+                            <span class="discount">
+                                <?php echo $discount_percentage . '% OFF'; ?>
+                            </span>
+                        <?php endif; ?>
+                        <h3>
+                            <a href="<?php echo get_permalink( $deal_of_the_week_product_id ); ?>"><?php echo get_the_title( $deal_of_the_week_product_id ) ?></a>
+                        </h3>
+                        <p><?php echo get_the_excerpt( $deal_of_the_week_product_id ); ?></p>
+                        <div class="prices">
+                            <span class="regular">
+                                <?php 
+                                    echo $regular_price;
+                                    echo $currency;
+                                ?>
+                            </span>
+                            <?php if ( !empty( $sale_price ) ) : ?>
+                            <span class="sale">
+                                <?php 
+                                    echo $sale_price;
+                                    echo $currency;
+                                ?>
+                            </span>
+                            <?php endif; ?>
+                        </div>
+                        <a href="<?php echo esc_url( '' ) ?>"></a>
                     </div>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
         <section class="lab-blog">
             <div class="container">
                 <div class="row">
