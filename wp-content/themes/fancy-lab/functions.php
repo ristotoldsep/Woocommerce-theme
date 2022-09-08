@@ -115,4 +115,6 @@ function fancy_lab_woocommerce_header_add_to_cart_fragment($fragments)
     return $fragments;
 }
 
+
+
 ?>

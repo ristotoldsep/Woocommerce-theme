@@ -226,5 +226,142 @@ function fancy_lab_customizer( $wp_customize ) {
         )
     );
 
+    /**--------------------------------------------- */
+    //Homepage Settings
+    $wp_customize->add_section(
+        'sec_home_page',
+        array(
+            'title' => 'Home Page Products and Blog Settings',
+            'description' => 'Home Page Settings Section',
+        )
+    );
+
+    //Setting 1 - Popular Products Max Number
+    $wp_customize->add_setting(
+        'set_popular_max_num',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'absint', //Returns positive integer
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_popular_max_num',
+        array(
+            'label' => 'Popular Products Max Number',
+            'description' => 'Popular Products Max Number (Default: 4)',
+            'section' => 'sec_home_page',
+            'type' => 'number',
+        )
+    );
+
+    //Setting 2 - Popular Products Max Column Number
+    $wp_customize->add_setting(
+        'set_popular_max_col',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'absint', //Returns positive integer
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_popular_max_col',
+        array(
+            'label' => 'Popular Products Max Columns',
+            'description' => 'Popular Products Max Columns (Default: 4)',
+            'section' => 'sec_home_page',
+            'type' => 'number',
+        )
+    );
+
+    //Setting 2 - New Arrivals Max Number
+    $wp_customize->add_setting(
+        'set_new_arrivals_max_num',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'absint', //Returns positive integer
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_new_arrivals_max_num',
+        array(
+            'label' => 'New Arrivals Max Number',
+            'description' => 'New Arrivals Max Number (Default: 4)',
+            'section' => 'sec_home_page',
+            'type' => 'number',
+        )
+    );
+
+    //Setting 2 - New Arrivals Max Column Number
+    $wp_customize->add_setting(
+        'set_new_arrivals_max_col',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'absint', //Returns positive integer
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_new_arrivals_max_col',
+        array(
+            'label' => 'New Arrivals Max Columns',
+            'description' => 'New Arrivals Max Columns (Default: 4)',
+            'section' => 'sec_home_page',
+            'type' => 'number',
+        )
+    );
+
+    //DEAL OF THE WEEK CHECKBOX
+    $wp_customize->add_setting(
+        'set_deal_of_the_week_id',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'fancy_lab_sanitize_checkbox', //Custom function below to sanitize checkbox input
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_deal',
+        array(
+            'label' => 'Show Deal of the Week?',
+            'description' => 'Checked = show, Unchecked = Do Not Show',
+            'section' => 'sec_home_page',
+            'type' => 'checkbox',
+        )
+    );
+
+
+    //DEAL OF THE WEEK PRODUCT ID
+    $wp_customize->add_setting(
+        'set_deal',
+        array(
+            'type' => 'theme_mod',
+            'default' => '',
+            'sanitize_callback' => 'absint', //Returns positive integer
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_deal_of_the_week_id',
+        array(
+            'label' => 'DEAL OF THE WEEK PRODUCT ID',
+            'description' => 'DEAL OF THE WEEK PRODUCT ID',
+            'section' => 'sec_home_page',
+            'type' => 'number',
+        )
+    );
+
+   
+
 }
 add_action ( 'customize_register', 'fancy_lab_customizer');
+
+function fancy_lab_sanitize_checkbox( $checked ) {
+    return ((isset($checked) && true == $checked ) ? true : false );
+}
