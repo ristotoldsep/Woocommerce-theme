@@ -20,11 +20,42 @@ get_header();
                         $slider_button_text[$i] = get_theme_mod('set_slider_button_text' . $i);
                         $slider_button_url[$i] = get_theme_mod('set_slider_button_url' . $i);
                     }
+
+                    $args = array(
+                        'post_type' => 'page',
+                        'posts_per_page' => 3,
+                        'post__in' => $slider_page,
+                        'orderby' => 'post__in',
+                    );
+
+                    $slider_loop = new WP_Query( $args );
+                    $j = 1;
+                    if ( $slider_loop->have_posts() ) :
+                        while( $slider_loop->have_posts() ):
+                            $slider_loop->the_post();
                     ?>
                     <li>
-                        <img src="slide1.jpg" />
+                        <?php 
+                        the_post_thumbnail('fancy-lab-slider', array('class' => 'img-fluid'));
+                        ?>
+                        <div class="container">
+                            <div class="slider-details-container">
+                                <div class="slider-title">
+                                    <h1><?php  the_title(); ?></h1>
+                                </div>
+                                <div class="slider-description">
+                                    <div class="subtitle"><?php the_content(); ?></div>
+                                    <a href="<?php echo $slider_button_url[$j]; ?>" class="link"><?php echo $slider_button_text[$j]; ?></a>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                    <?php  ?>
+                    <?php 
+                    $j++;
+                    //DONT FORGET TO ADD THIS, IN Case we need to use the default wp loop
+                    endwhile; 
+                    wp_reset_postdata();
+                    endif; ?>
                 </ul>
             </div>
         </section>
