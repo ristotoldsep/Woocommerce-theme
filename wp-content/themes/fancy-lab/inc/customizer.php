@@ -416,6 +416,26 @@ function fancy_lab_customizer( $wp_customize ) {
         )
     );
 
+    //Blog Section Title
+    $wp_customize->add_setting(
+        'set_blog_title',
+        array(
+            'type' => 'theme_mod',
+            'default' => 'News From Our Blog',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_blog_title',
+        array(
+            'label' => 'Add Blog Section Title',
+            'description' => 'Default: Deal of the Week',
+            'section' => 'sec_home_page',
+            'type' => 'text',
+        )
+    );
+
    
 
 }

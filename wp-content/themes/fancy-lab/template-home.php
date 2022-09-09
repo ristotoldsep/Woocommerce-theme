@@ -74,13 +74,17 @@ get_header();
                 $new_arrivals_col_limit = get_theme_mod('set_new_arrivals_max_col', 4);
                 ?>
                 <div class="container">
-                    <h2><?php echo $popular_products_title; ?></h2>
+                    <div class="section-title">
+                        <h2><?php echo $popular_products_title; ?></h2>
+                    </div>
                     <?php echo do_shortcode('[products limit=" ' . $popular_products_limit . ' " columns="' . $popular_col_limit . '" orderby="popularity"]'); ?>
                 </div>
             </section>
             <section class="new-arrivals">
                 <div class="container">
-                    <h2><?php echo $new_arrivals_title; ?></h2>
+                    <div class="section-title">
+                        <h2><?php echo $new_arrivals_title; ?></h2>
+                    </div>
                     <?php echo do_shortcode('[products limit="' . $new_arrivals_limit . '" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
                 </div>
             </section>
@@ -121,7 +125,9 @@ get_header();
             ?>
                 <section class="deal-of-the-week">
                     <div class="container">
-                        <h2><?php echo $deal_of_the_week_title; ?></h2>
+                        <div class="section-title">
+                            <h2><?php echo $deal_of_the_week_title; ?></h2>
+                        </div>
                         <div class="row d-flex align-items-center">
                             <div class="deal-img col-md-6 col-12 ml-auto text-center">
                                 <?php echo get_the_post_thumbnail($deal_of_the_week_product_id, 'large', array('class' => 'img-fluid')); ?>
@@ -182,6 +188,7 @@ get_header();
                                 <?php else : ?>
                                     <a href="<?php echo esc_url('?add-to-cart=' . $deal_of_the_week_product_id); ?>" data-quantity="1" class="add-to-cart button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo esc_attr($deal_of_the_week_product_id); ?>" aria-label="Add “<?php echo esc_attr(get_the_title($deal_of_the_week_product_id)) ?>” to your cart" rel="nofollow"><?php esc_html_e('Add to Cart', 'fancy-lab') ?></a>
                                 <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
@@ -190,28 +197,45 @@ get_header();
         <?php endif; ?>
         <section class="lab-blog">
             <div class="container">
+                <div class="section-title">
+                    <h2><?php echo get_theme_mod('set_blog_title', 'News From Our Blog'); ?></h2>
+                </div>
                 <div class="row">
                     <?php
-                    //If there are any posts
-                    if (have_posts()) :
 
-                        //Load posts loop
-                        while (have_posts()) : the_post();
+                    $args = array(
+                        'post_type'            => 'post',
+                        'posts_per_page'    => 3,
+                    );
+
+                    $blog_posts = new WP_Query($args);
+
+                    // If there are any posts
+                    if ($blog_posts->have_posts()) :
+
+                        // Load posts loop
+                        while ($blog_posts->have_posts()) : $blog_posts->the_post();
                     ?>
-                            <article>
-                                <h2><?php the_title(); ?></h2>
-                                <div><?php the_content(); ?></div>
+                            <article class="col-12 col-md-4">
+                                <a href="<?php the_permalink(); ?>">
+                                    <?php
+                                    if (has_post_thumbnail()) :
+                                        the_post_thumbnail('fancy-lab-blog', array('class' => 'img-fluid'));
+                                    endif;
+                                    ?>
+                                </a>
+                                <h3>
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                </h3>
+                                <div class="excerpt"><?php the_excerpt(); ?></div>
                             </article>
                         <?php
                         endwhile;
-                    else :
+                        wp_reset_postdata(); else :
                         ?>
                         <p>Nothing to display.</p>
-                    <?php
-                    endif;
-                    ?>
+                    <?php endif; ?>
                 </div>
-
             </div>
         </section>
     </main>
