@@ -315,8 +315,9 @@ a.flex-prev, a.flex-next {
 
 .woocommerce ul.products li.product .onsale {
     top: 16px;
-    left: 0;
     right: 0;
+    left: 0;
+    /* Modified - was: auto */
     transform: rotate(90deg);
     border-radius: 0;
     width: 83px;

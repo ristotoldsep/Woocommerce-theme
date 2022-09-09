@@ -59,75 +59,124 @@ get_header();
                 </ul>
             </div>
         </section>
-        <section class="popular-products">
-            <?php 
-                $popular_products_limit = get_theme_mod( 'set_popular_max_num', 4 );
-                $popular_col_limit = get_theme_mod('set_popular_max_col', 4 );
+        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+            <section class="popular-products">
+                <?php
+                $popular_products_limit = get_theme_mod('set_popular_max_num', 4);
+                $popular_col_limit = get_theme_mod('set_popular_max_col', 4);
 
-                $new_arrivals_limit = get_theme_mod( 'set_new_arrivals_max_num', 4 );
-                $new_arrivals_col_limit = get_theme_mod('set_new_arrivals_max_col', 4 );
-            ?>
-            <div class="container">
-                <h2>Popular products</h2>
-                <?php echo do_shortcode('[products limit=" ' . $popular_products_limit .' " columns="' . $popular_col_limit . '" orderby="popularity"]'); ?>
-            </div>
-        </section>
-        <section class="new-arrivals">
-            <div class="container">
-                <h2>New Arrivals</h2>
-                <?php echo do_shortcode('[products limit="' . $new_arrivals_limit .'" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
-            </div>
-        </section>
-        <?php 
-        //DEAL OF THE WEEK
+                $new_arrivals_limit = get_theme_mod('set_new_arrivals_max_num', 4);
+                $new_arrivals_col_limit = get_theme_mod('set_new_arrivals_max_col', 4);
+                ?>
+                <div class="container">
+                    <h2>Popular products</h2>
+                    <?php echo do_shortcode('[products limit=" ' . $popular_products_limit . ' " columns="' . $popular_col_limit . '" orderby="popularity"]'); ?>
+                </div>
+            </section>
+            <section class="new-arrivals">
+                <div class="container">
+                    <h2>New Arrivals</h2>
+                    <?php echo do_shortcode('[products limit="' . $new_arrivals_limit . '" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
+                </div>
+            </section>
+            <?php
+            //DEAL OF THE WEEK
 
             $showdealoftheweek = get_theme_mod('show_deal_of_the_week', 0);
             $deal_of_the_week_product_id = get_theme_mod('set_deal_of_the_week_id');
             $currency = get_woocommerce_currency_symbol();
-            $regular_price = get_post_meta( $deal_of_the_week_product_id, '_regular_price', true ); //Single value last option
-            $sale_price = get_post_meta ($deal_of_the_week_product_id, '_sale_price', true );
-            
-            if ( $showdealoftheweek == 1 && ( !empty($deal_of_the_week_product_id ) ) ) :
-                $discount_percentage = absint( 100 - ( ( $sale_price/$regular_price ) * 100 ) );
-        ?>
-        <section class="deal-of-the-week">
-            <div class="container">
-                <h2>Deal of the Week</h2>
-                <div class="row d-flex align-items-center">
-                    <div class="deal-img col-md-6 col-12 ml-auto text-center">
-                        <?php echo get_the_post_thumbnail( $deal_of_the_week_product_id, 'large', array( 'class' => 'img-fluid' ) ); ?>
-                    </div>
-                    <div class="deal-desc col-md-4 col-12 mr-auto text-center">
-                        <?php if ( !empty ( $sale_price ) ) : ?>
-                            <span class="discount">
-                                <?php echo $discount_percentage . '% OFF'; ?>
-                            </span>
-                        <?php endif; ?>
-                        <h3>
-                            <a href="<?php echo get_permalink( $deal_of_the_week_product_id ); ?>"><?php echo get_the_title( $deal_of_the_week_product_id ) ?></a>
-                        </h3>
-                        <p><?php echo get_the_excerpt( $deal_of_the_week_product_id ); ?></p>
-                        <div class="prices">
-                            <span class="regular">
-                                <?php 
-                                    echo $regular_price;
-                                    echo $currency;
-                                ?>
-                            </span>
-                            <?php if ( !empty( $sale_price ) ) : ?>
-                            <span class="sale">
-                                <?php 
-                                    echo $sale_price;
-                                    echo $currency;
-                                ?>
-                            </span>
-                            <?php endif; ?>
+            $regular_price = get_post_meta($deal_of_the_week_product_id, '_regular_price', true); //Single value last option
+            $sale_price = get_post_meta($deal_of_the_week_product_id, '_sale_price', true);
+
+            //For other products than just simple
+            $price_variable = get_post_meta($deal_of_the_week_product_id, '_price', false);
+
+            //Global woocommerce product
+            $product = wc_get_product($deal_of_the_week_product_id);
+
+
+            echo "<h1>" . $regular_price . "</h1>";
+            echo gettype($regular_price) . "<br>";
+            $regular_price_int = (int) $regular_price;
+            echo gettype($regular_price_int);
+            echo "<h1>" . $sale_price . "</h1>";
+            echo gettype($sale_price) . "<br>";
+            $sale_price_int = (int) $sale_price;
+            echo gettype($sale_price_int);
+
+            if ($showdealoftheweek == 1 && (!empty($deal_of_the_week_product_id))) :
+                if (!empty($regular_price_int) && !empty($sale_price_int)) :
+                    $discount_percentage = absint(100 - (($sale_price_int / $regular_price_int) * 100));
+                endif;
+            ?>
+                <section class="deal-of-the-week">
+                    <div class="container">
+                        <h2>Deal of the Week</h2>
+                        <div class="row d-flex align-items-center">
+                            <div class="deal-img col-md-6 col-12 ml-auto text-center">
+                                <?php echo get_the_post_thumbnail($deal_of_the_week_product_id, 'large', array('class' => 'img-fluid')); ?>
+                            </div>
+                            <div class="deal-desc col-md-4 col-12 mr-auto text-center">
+                                <?php if (!empty($sale_price_int)) : ?>
+                                    <span class="discount">
+                                        <?php echo $discount_percentage . '% OFF'; ?>
+                                    </span>
+                                <?php endif; ?>
+                                <h3>
+                                    <a href="<?php echo get_permalink($deal_of_the_week_product_id); ?>"><?php echo get_the_title($deal_of_the_week_product_id) ?></a>
+                                </h3>
+                                <p><?php echo get_the_excerpt($deal_of_the_week_product_id); ?></p>
+                                <div class="prices">
+                                    <span class="regular">
+                                        <?php
+                                        // We only show prices for non-variable products
+                                        if (!$product->is_type('variable')) {
+                                            echo esc_html($currency);
+                                            echo esc_html($regular_price_int);
+                                        }
+                                        ?>
+                                    </span>
+                                    <?php if (!empty($sale_price_int)) : ?>
+                                        <span class="sale">
+                                            <?php
+                                            // We only show prices for non-variable products
+                                            if (!$product->is_type('variable')) {
+                                                echo esc_html($currency);
+                                                echo esc_html($sale_price_int);
+                                            }
+                                            ?>
+                                        </span>
+                                    <?php else : ?>
+                                        <span class="sale">
+                                            <?php
+                                            // We need to care about variable products
+                                            if ($product->is_type('variable')) {
+                                                $i = 0;
+                                                foreach ($price_variable as $variable) {
+                                                    if ($i == 0 && ($product->get_variation_sale_price('max') != $product->get_variation_sale_price('min'))) {
+                                                        echo esc_html($currency . $variable) . ' - ';
+                                                    } else {
+                                                        echo esc_html($currency . $variable);
+                                                    }
+                                                    $i++;
+                                                }
+                                            }
+                                            ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if ($product->is_type('variable')) : ?>
+                                    <a href="<?php echo esc_url(get_permalink($deal_of_the_week_product_id)) ?>" data-quantity="1" class="add-to-cart button product_type_variable add_to_cart_button" data-product_id="<?php echo esc_attr($deal_of_the_week_product_id); ?>" aria-label="Select options for “<?php echo esc_attr(get_the_title($deal_of_the_week_product_id)) ?>”" rel="nofollow"><?php esc_html_e('Select options', 'fancy-lab') ?></a>
+                                <?php elseif ($product->is_type('external')) : ?>
+                                    <a href="<?php echo esc_url(get_permalink($deal_of_the_week_product_id)) ?>" data-quantity="1" class="add-to-cart button product_type_variable add_to_cart_button" data-product_id="<?php echo esc_attr($deal_of_the_week_product_id); ?>" aria-label="View details for “<?php echo esc_attr(get_the_title($deal_of_the_week_product_id)) ?>”" rel="nofollow"><?php esc_html_e('View details', 'fancy-lab') ?></a>
+                                <?php else : ?>
+                                    <a href="<?php echo esc_url('?add-to-cart=' . $deal_of_the_week_product_id); ?>" data-quantity="1" class="add-to-cart button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="<?php echo esc_attr($deal_of_the_week_product_id); ?>" aria-label="Add “<?php echo esc_attr(get_the_title($deal_of_the_week_product_id)) ?>” to your cart" rel="nofollow"><?php esc_html_e('Add to Cart', 'fancy-lab') ?></a>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                        <a href="<?php echo esc_url( '' ) ?>"></a>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
+            <?php endif; ?>
         <?php endif; ?>
         <section class="lab-blog">
             <div class="container">

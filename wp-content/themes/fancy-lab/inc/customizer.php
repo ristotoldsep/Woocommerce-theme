@@ -344,6 +344,7 @@ function fancy_lab_customizer( $wp_customize ) {
             'type' => 'theme_mod',
             'default' => '',
             'sanitize_callback' => 'absint', //Returns positive integer
+            'validate_callback' => 'validate_sale_price',
         )
     );
 
@@ -364,4 +365,12 @@ add_action ( 'customize_register', 'fancy_lab_customizer');
 
 function fancy_lab_sanitize_checkbox( $checked ) {
     return ((isset($checked) && true == $checked ) ? true : false );
+}
+
+function validate_sale_price( $validity, $product ) {
+    $sale_validation = get_post_meta( $product, '_sale_price', true );
+    if ( empty( $sale_validation ) ) {
+        $validity->add( 'sale_price_not_set', sprintf( __('Please Add Sale Price - Product ID: %1$s', 'fancy-lab'), $product) );
+    }
+    return $validity;
 }
