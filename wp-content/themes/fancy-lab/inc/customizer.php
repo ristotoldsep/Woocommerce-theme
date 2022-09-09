@@ -192,7 +192,7 @@ function fancy_lab_customizer( $wp_customize ) {
         array(
             'type' => 'theme_mod',
             'default' => '',
-            'sanitize_callback' => 'sanitize_text_field', //Returns positive integer
+            'sanitize_callback' => 'sanitize_text_field', 
         )
     );
 
@@ -236,6 +236,24 @@ function fancy_lab_customizer( $wp_customize ) {
         )
     );
 
+    //Popular Products Title
+    $wp_customize->add_setting(
+        'set_popular_products_title', array(
+            'type' => 'theme_mod',
+            'default' => 'Popular Products',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+        );
+
+    $wp_customize->add_control(
+        'set_popular_products_title', array(
+            'label' => 'Add Popular Products Section Title',
+            'description' => 'Default: Popular Products',
+            'section' => 'sec_home_page',
+            'type' => 'text',
+        )
+        );
+
     //Setting 1 - Popular Products Max Number
     $wp_customize->add_setting(
         'set_popular_max_num',
@@ -273,6 +291,26 @@ function fancy_lab_customizer( $wp_customize ) {
             'description' => 'Popular Products Max Columns (Default: 4)',
             'section' => 'sec_home_page',
             'type' => 'number',
+        )
+    );
+
+    //New Arrivals Title
+    $wp_customize->add_setting(
+        'set_new_arrivals_title',
+        array(
+            'type' => 'theme_mod',
+            'default' => 'New Arrivals',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_new_arrivals_title',
+        array(
+            'label' => 'Add New Arrivals Section Title',
+            'description' => 'Default: New Arrivals',
+            'section' => 'sec_home_page',
+            'type' => 'text',
         )
     );
 
@@ -333,6 +371,26 @@ function fancy_lab_customizer( $wp_customize ) {
             'description' => 'Checked = show, Unchecked = Do Not Show',
             'section' => 'sec_home_page',
             'type' => 'checkbox',
+        )
+    );
+
+    //Deal of the week Title
+    $wp_customize->add_setting(
+        'set_dotw_title',
+        array(
+            'type' => 'theme_mod',
+            'default' => 'Deal of the Week',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'set_dotw_title',
+        array(
+            'label' => 'Add Deal of the Week Section Title',
+            'description' => 'Default: Deal of the Week',
+            'section' => 'sec_home_page',
+            'type' => 'text',
         )
     );
 

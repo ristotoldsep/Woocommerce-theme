@@ -59,7 +59,12 @@ get_header();
                 </ul>
             </div>
         </section>
-        <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+        <?php if (class_exists('WooCommerce')) :
+
+            $popular_products_title = get_theme_mod('set_popular_products_title', 'Popid tooted');
+            $new_arrivals_title = get_theme_mod('set_new_arrivals_title', 'Uued tooted');
+
+        ?>
             <section class="popular-products">
                 <?php
                 $popular_products_limit = get_theme_mod('set_popular_max_num', 4);
@@ -69,13 +74,13 @@ get_header();
                 $new_arrivals_col_limit = get_theme_mod('set_new_arrivals_max_col', 4);
                 ?>
                 <div class="container">
-                    <h2>Popular products</h2>
+                    <h2><?php echo $popular_products_title; ?></h2>
                     <?php echo do_shortcode('[products limit=" ' . $popular_products_limit . ' " columns="' . $popular_col_limit . '" orderby="popularity"]'); ?>
                 </div>
             </section>
             <section class="new-arrivals">
                 <div class="container">
-                    <h2>New Arrivals</h2>
+                    <h2><?php echo $new_arrivals_title; ?></h2>
                     <?php echo do_shortcode('[products limit="' . $new_arrivals_limit . '" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
                 </div>
             </section>
@@ -83,10 +88,15 @@ get_header();
             //DEAL OF THE WEEK
 
             $showdealoftheweek = get_theme_mod('show_deal_of_the_week', 0);
+            $deal_of_the_week_title = get_theme_mod('set_dotw_title', 'Deal of the Week');
             $deal_of_the_week_product_id = get_theme_mod('set_deal_of_the_week_id');
             $currency = get_woocommerce_currency_symbol();
+
             $regular_price = get_post_meta($deal_of_the_week_product_id, '_regular_price', true); //Single value last option
+            $regular_price_int = (int) $regular_price;
+
             $sale_price = get_post_meta($deal_of_the_week_product_id, '_sale_price', true);
+            $sale_price_int = (int) $sale_price;
 
             //For other products than just simple
             $price_variable = get_post_meta($deal_of_the_week_product_id, '_price', false);
@@ -95,14 +105,14 @@ get_header();
             $product = wc_get_product($deal_of_the_week_product_id);
 
 
-            echo "<h1>" . $regular_price . "</h1>";
+            /* echo "<h1>" . $regular_price . "</h1>";
             echo gettype($regular_price) . "<br>";
             $regular_price_int = (int) $regular_price;
             echo gettype($regular_price_int);
             echo "<h1>" . $sale_price . "</h1>";
             echo gettype($sale_price) . "<br>";
             $sale_price_int = (int) $sale_price;
-            echo gettype($sale_price_int);
+            echo gettype($sale_price_int); */
 
             if ($showdealoftheweek == 1 && (!empty($deal_of_the_week_product_id))) :
                 if (!empty($regular_price_int) && !empty($sale_price_int)) :
@@ -111,7 +121,7 @@ get_header();
             ?>
                 <section class="deal-of-the-week">
                     <div class="container">
-                        <h2>Deal of the Week</h2>
+                        <h2><?php echo $deal_of_the_week_title; ?></h2>
                         <div class="row d-flex align-items-center">
                             <div class="deal-img col-md-6 col-12 ml-auto text-center">
                                 <?php echo get_the_post_thumbnail($deal_of_the_week_product_id, 'large', array('class' => 'img-fluid')); ?>
