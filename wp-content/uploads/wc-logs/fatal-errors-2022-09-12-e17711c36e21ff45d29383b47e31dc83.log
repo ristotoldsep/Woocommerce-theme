@@ -1,0 +1,15 @@
+2022-09-12T22:55:03+00:00 CRITICAL Uncaught TypeError: call_user_func_array(): Argument #1 ($function) must be a valid callback, function "fancy_lab_sidebars" not found or invalid function name in C:\xampp\htdocs\wc_course\wp-includes\class-wp-hook.php:307
+Stack trace:
+#0 C:\xampp\htdocs\wc_course\wp-includes\class-wp-hook.php(331): WP_Hook->apply_filters(NULL, Array)
+#1 C:\xampp\htdocs\wc_course\wp-includes\plugin.php(476): WP_Hook->do_action(Array)
+#2 C:\xampp\htdocs\wc_course\wp-includes\widgets.php(1854): do_action('widgets_init')
+#3 C:\xampp\htdocs\wc_course\wp-includes\class-wp-hook.php(307): wp_widgets_init('')
+#4 C:\xampp\htdocs\wc_course\wp-includes\class-wp-hook.php(331): WP_Hook->apply_filters(NULL, Array)
+#5 C:\xampp\htdocs\wc_course\wp-includes\plugin.php(476): WP_Hook->do_action(Array)
+#6 C:\xampp\htdocs\wc_course\wp-settings.php(598): do_action('init')
+#7 C:\xampp\htdocs\wc_course\wp-config.php(90): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\wc_course\wp-load.php(50): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\wc_course\wp-admin\admin-ajax.php(22): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+  thrown in C:\xampp\htdocs\wc_course\wp-includes\class-wp-hook.php on line 307
+

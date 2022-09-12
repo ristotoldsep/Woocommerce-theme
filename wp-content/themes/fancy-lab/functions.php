@@ -120,6 +120,20 @@ function fancy_lab_woocommerce_header_add_to_cart_fragment($fragments)
     return $fragments;
 }
 
+//Register sidebars
+add_action('widgets_init','fancy_lab_sidebars' );
+function fancy_lab_sidebars() {
+    register_sidebar( array(
+        'name' => 'Fancy Lab Main Sidebar',
+        'id' => 'fancy-lab-sidebar-1',
+        'description' => 'Drag and drop your wdgets here',
+        'before_widget' => '<div id="%1$s" class="widget %2$s widget-wrapper">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ));
+}
+
 
 
 ?>
