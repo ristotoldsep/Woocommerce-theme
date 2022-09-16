@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Fancy Lab By RIX
+ * @package Fancy Lab BY Rix
  */
 
 get_header();
@@ -13,6 +13,7 @@ get_header();
 			<main>
 				<div class="container">
 					<div class="row">
+						<div class="col-lg-9 col-md-8 col-12">
 						<?php 
 
 							the_archive_title( '<h1 class="article-title">', '</h1>' );
@@ -22,9 +23,7 @@ get_header();
 
 								// Load posts loop
 								while( have_posts() ): the_post();
-									
-									get_template_part('template-parts/content', 'archive');	
-									
+									get_template_part( 'template-parts/content', 'archive' );
 								endwhile;
 
 								// We're using numeric page navigation here.
@@ -37,6 +36,8 @@ get_header();
 						?>
 							<p>Nothing to display.</p>
 						<?php endif; ?>
+						</div>
+						<?php get_sidebar(); ?>
 					</div>
 				</div>
 			</main>

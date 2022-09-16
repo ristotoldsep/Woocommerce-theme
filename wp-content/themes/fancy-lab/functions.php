@@ -50,10 +50,16 @@ function fancy_lab_config()
 {
     register_nav_menus(
         array(
-            'fancy_lab_main_menu' => 'Fancy Lab Main Menu',
-            'fancy_lab_footer_menu' => 'Fancy Lab Footer Menu'
+            'fancy_lab_main_menu' => __('Fancy Lab Main Menu', 'fancy-lab'),
+            'fancy_lab_footer_menu' => __('Fancy Lab Footer Menu', 'fancy-lab'),
         )
     );
+
+
+    //For translations and internationalization
+    $textdomain = 'fancy-lab';
+    load_theme_textdomain($textdomain, get_stylesheet_directory() . '/languages/' );
+    load_theme_textdomain($textdomain, get_template_directory() . '/languages/' );
 
     //Adding woocommerce support to the theme
     add_theme_support('woocommerce', array(
@@ -126,11 +132,48 @@ function fancy_lab_sidebars() {
     register_sidebar( array(
         'name' => 'Fancy Lab Main Sidebar',
         'id' => 'fancy-lab-sidebar-1',
-        'description' => 'Drag and drop your wdgets here',
+        'description' => 'Drag and drop your widgets here',
         'before_widget' => '<div id="%1$s" class="widget %2$s widget-wrapper">',
         'after_widget' => '</div>',
         'before_title' => '<h4 class="widget-title">',
         'after_title' => '</h4>',
+    ));
+
+    register_sidebar(array(
+        'name'            => 'Sidebar Shop',
+        'id'            => 'fancy-lab-sidebar-shop',
+        'description'    => 'Drag and drop your WooCommerce widgets here',
+        'before_widget'    => '<div id="%1$s" class="widget %2$s widget-wrapper">',
+        'after_widget'    => '</div>',
+        'before_title'    => '<h4 class="widget-title">',
+        'after_title'    => '</h4>',
+    ));
+    register_sidebar(array(
+        'name'            => 'Footer Sidebar 1',
+        'id'            => 'fancy-lab-sidebar-footer1',
+        'description'    => 'Drag and drop your widgets here',
+        'before_widget'    => '<div id="%1$s" class="widget %2$s widget-wrapper">',
+        'after_widget'    => '</div>',
+        'before_title'    => '<h4 class="widget-title">',
+        'after_title'    => '</h4>',
+    ));
+    register_sidebar(array(
+        'name'            => 'Footer Sidebar 2',
+        'id'            => 'fancy-lab-sidebar-footer2',
+        'description'    => 'Drag and drop your widgets here',
+        'before_widget'    => '<div id="%1$s" class="widget %2$s widget-wrapper">',
+        'after_widget'    => '</div>',
+        'before_title'    => '<h4 class="widget-title">',
+        'after_title'    => '</h4>',
+    ));
+    register_sidebar(array(
+        'name'            => 'Footer Sidebar 3',
+        'id'            => 'fancy-lab-sidebar-footer3',
+        'description'    => 'Drag and drop your widgets here',
+        'before_widget'    => '<div id="%1$s" class="widget %2$s widget-wrapper">',
+        'after_widget'    => '</div>',
+        'before_title'    => '<h4 class="widget-title">',
+        'after_title'    => '</h4>',
     ));
 }
 
