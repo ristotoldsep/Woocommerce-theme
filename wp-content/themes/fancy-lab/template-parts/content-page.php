@@ -9,6 +9,8 @@
 
 ?>
 <article class="col">
+	<?php //SECURITY TEST - XSS  ?>
+	<?php $title = "<script>alert('You have been hacked')</script>"; ?>
 	<h1><?php the_title(); ?></h1>
 	<div><?php the_content(); ?></div>
 	<?php 

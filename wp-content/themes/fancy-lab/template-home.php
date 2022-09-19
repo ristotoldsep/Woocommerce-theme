@@ -45,7 +45,7 @@ get_header();
                                         </div>
                                         <div class="slider-description">
                                             <div class="subtitle"><?php the_content(); ?></div>
-                                            <a href="<?php echo $slider_button_url[$j]; ?>" class="link"><?php echo $slider_button_text[$j]; ?></a>
+                                            <a href="<?php echo esc_url( $slider_button_url[$j] ); ?>" class="link"><?php echo esc_html( $slider_button_text[$j] ); ?></a>
                                         </div>
                                     </div>
                                 </div>
@@ -67,17 +67,17 @@ get_header();
         ?>
             <section class="popular-products">
                 <?php
-                $popular_products_limit = get_theme_mod('set_popular_max_num', 4);
-                $popular_col_limit = get_theme_mod('set_popular_max_col', 4);
+                $popular_products_limit = esc_html( get_theme_mod('set_popular_max_num', 4) );
+                $popular_col_limit = esc_html( get_theme_mod('set_popular_max_col', 4) );
 
-                $new_arrivals_limit = get_theme_mod('set_new_arrivals_max_num', 4);
-                $new_arrivals_col_limit = get_theme_mod('set_new_arrivals_max_col', 4);
+                $new_arrivals_limit = esc_html( get_theme_mod('set_new_arrivals_max_num', 4) );
+                $new_arrivals_col_limit = esc_html( get_theme_mod('set_new_arrivals_max_col', 4) );
                 ?>
                 <div class="container">
                     <div class="section-title">
                         <h2><?php echo $popular_products_title; ?></h2>
                     </div>
-                    <?php echo do_shortcode('[products limit=" ' . $popular_products_limit . ' " columns="' . $popular_col_limit . '" orderby="popularity"]'); ?>
+                    <?php echo do_shortcode('[products limit=" ' . esc_attr( $popular_products_limit ) . ' " columns="' . esc_attr( $popular_col_limit ) . '" orderby="popularity"]'); ?>
                 </div>
             </section>
             <section class="new-arrivals">
@@ -85,14 +85,14 @@ get_header();
                     <div class="section-title">
                         <h2><?php echo $new_arrivals_title; ?></h2>
                     </div>
-                    <?php echo do_shortcode('[products limit="' . $new_arrivals_limit . '" columns="' . $new_arrivals_col_limit . '" orderby="date"]'); ?>
+                    <?php echo do_shortcode('[products limit="' . esc_attr( $new_arrivals_limit ) . '" columns="' . esc_attr( $new_arrivals_col_limit ) . '" orderby="date"]'); ?>
                 </div>
             </section>
             <?php
             //DEAL OF THE WEEK
 
             $showdealoftheweek = get_theme_mod('show_deal_of_the_week', 0);
-            $deal_of_the_week_title = get_theme_mod('set_dotw_title', 'Deal of the Week');
+            $deal_of_the_week_title = esc_html( get_theme_mod('set_dotw_title', __('Deal of the Week', 'fancy-lab') ) );
             $deal_of_the_week_product_id = get_theme_mod('set_deal_of_the_week_id');
             $currency = get_woocommerce_currency_symbol();
 
@@ -133,15 +133,15 @@ get_header();
                                 <?php echo get_the_post_thumbnail($deal_of_the_week_product_id, 'large', array('class' => 'img-fluid')); ?>
                             </div>
                             <div class="deal-desc col-md-4 col-12 mr-auto text-center">
-                                <?php if (!empty($sale_price_int)) : ?>
+                                <?php if ( !empty($sale_price_int) ) : ?>
                                     <span class="discount">
-                                        <?php echo $discount_percentage . '% OFF'; ?>
+                                        <?php echo esc_html( $discount_percentage ) . esc_html__('% OFF', 'fancy-lab'); ?>
                                     </span>
                                 <?php endif; ?>
                                 <h3>
-                                    <a href="<?php echo get_permalink($deal_of_the_week_product_id); ?>"><?php echo get_the_title($deal_of_the_week_product_id) ?></a>
+                                    <a href="<?php echo esc_url( get_permalink($deal_of_the_week_product_id) ); ?>"><?php echo esc_html( get_the_title( $deal_of_the_week_product_id ) ); ?></a>
                                 </h3>
-                                <p><?php echo get_the_excerpt($deal_of_the_week_product_id); ?></p>
+                                <p><?php echo esc_html( get_the_excerpt( $deal_of_the_week_product_id ) ); ?></p>
                                 <div class="prices">
                                     <span class="regular">
                                         <?php
@@ -198,7 +198,7 @@ get_header();
         <section class="lab-blog">
             <div class="container">
                 <div class="section-title">
-                    <h2><?php echo get_theme_mod('set_blog_title', 'News From Our Blog'); ?></h2>
+                    <h2><?php echo esc_html( get_theme_mod('set_blog_title', 'News From Our Blog') ); ?></h2>
                 </div>
                 <div class="row">
                     <?php
@@ -233,7 +233,7 @@ get_header();
                         endwhile;
                         wp_reset_postdata(); else :
                         ?>
-                        <p>Nothing to display.</p>
+                        <p><?php esc_html_e('Nothing to display', 'fancy-lab'); ?>.</p>
                     <?php endif; ?>
                 </div>
             </div>

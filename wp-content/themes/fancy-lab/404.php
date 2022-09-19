@@ -15,16 +15,16 @@ get_header();
 		<div class="container">
 			<div class="error-404">
 				<header>
-					<h1><?php _e('Page not found', 'fancy-lab'); ?></h1>
-					<p><?php _e('Unfortunately, the page you tried to reach does not exist on this site.', 'fancy-lab'); ?></p>
-					<a href="<?php echo get_home_url(); ?>"><?php _e('Go back home', 'fancy-lab'); ?></a>
+					<h1><?php esc_html_e('Page not found', 'fancy-lab'); ?></h1>
+					<p><?php esc_html_e('Unfortunately, the page you tried to reach does not exist on this site.', 'fancy-lab'); ?></p>
+					<a href="<?php echo get_home_url(); ?>"><?php esc_html_e('Go back home', 'fancy-lab'); ?></a>
 					<hr>
 				</header>
 				<?php
 				the_widget(
 					'WP_Widget_Recent_Posts',
 					array(
-						'title'		=> __('Take a Look at Our Latest Posts', 'fancy-lab'),
+						'title'		=> esc_html__('Take a Look at Our Latest Posts', 'fancy-lab'),
 						'number'	=> 3,
 					)
 				);
