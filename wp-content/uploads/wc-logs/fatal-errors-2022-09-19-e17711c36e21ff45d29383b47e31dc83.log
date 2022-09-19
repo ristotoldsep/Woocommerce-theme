@@ -1,0 +1,4 @@
+2022-09-19T17:34:58+00:00 CRITICAL Array and string offset access syntax with curly braces is no longer supported in C:\xampp\htdocs\wc_course\wp-content\plugins\theme-sniffer\vendor\squizlabs\php_codesniffer\src\Config.php on line 420
+
+2022-09-19T17:38:00+00:00 CRITICAL Array and string offset access syntax with curly braces is no longer supported in C:\xampp\htdocs\wc_course\wp-content\plugins\theme-sniffer\vendor\squizlabs\php_codesniffer\src\Config.php on line 420
+

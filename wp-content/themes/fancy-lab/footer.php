@@ -6,7 +6,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Fancy Lab BY Rix
+ * @package Fancy Lab
  */
 
 ?>
@@ -36,13 +36,14 @@
 				<div class="container">
 					<div class="row">
 						<div class="copyright-text col-12 col-md-6">
-							<p><?php echo esc_html( get_theme_mod( 'set_copyright', 'Copyright X - All Rights Reserved' ) ); ?></p>
+							<p><?php echo esc_html( get_theme_mod( 'set_copyright', __( 'Copyright X - All Rights Reserved', 'fancy-lab' ) ) ); ?></p>
 						</div>
 						<nav class="footer-menu col-12 col-md-6 text-left text-md-right">
 							<?php 
 								wp_nav_menu( 
 									array(
-										'theme_location' 	=> 'fancy_lab_footer_menu'
+										'theme_location' 	=> 'fancy_lab_footer_menu',
+										'depth'				=> 1,
 									) 
 								); 
 							?>							

@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
- * @package Fancy Lab By RIX
+ * @package Fancy Lab
  */
 
 get_header();

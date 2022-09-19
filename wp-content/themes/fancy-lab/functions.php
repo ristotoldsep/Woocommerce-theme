@@ -8,9 +8,22 @@
  * @package Fancy Lab
  */
 
-// Register Custom Navigation Walker
+/**
+ * Enqueue files for the TGM PLugin Activation library.
+ */
+require_once get_template_directory() . '/inc/class-tgm-plugin-activation.php';
+require_once get_template_directory() . '/inc/required-plugins.php';
+
+require_once get_template_directory() . '/demo-data/ocdi.php';
+
+/**
+ * Enqueue WP Bootstrap Navwalker library (responsive menu).
+ */
 require_once get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
 
+/**
+ * Customizer additions.
+ */
 require_once get_template_directory() . '/inc/customizer.php';
 
 /**
@@ -22,7 +35,7 @@ function fancy_lab_scripts(){
  	wp_enqueue_style( 'bootstrap-css', get_template_directory_uri() . '/inc/bootstrap.min.css', array(), '4.3.1', 'all' );
 
  	// Theme's main stylesheet
- 	wp_enqueue_style( 'fancy-lab-style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), 'all' );
+ 	wp_enqueue_style( 'fancy-lab-style', get_stylesheet_uri(), array(), '1.0', 'all' );
 
  	// Google Fonts
  	wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Rajdhani:400,500,600,700|Seaweed+Script' );
@@ -32,6 +45,9 @@ function fancy_lab_scripts(){
 	wp_enqueue_style( 'flexslider-css', get_template_directory_uri() . '/inc/flexslider/flexslider.css', array(), '', 'all' );
 	wp_enqueue_script( 'flexslider-js', get_template_directory_uri() . '/inc/flexslider/flexslider.js', array( 'jquery' ), '', true );
 
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
  }
  add_action( 'wp_enqueue_scripts', 'fancy_lab_scripts' );
 
@@ -79,6 +95,9 @@ function fancy_lab_config(){
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
 
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
+
         /**
         * Add support for core custom logo.
         *
@@ -122,7 +141,7 @@ function fancy_lab_woocommerce_header_add_to_cart_fragment( $fragments ) {
 	ob_start();
 
 	?>
-	<span class="items"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+	<span class="items"><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>
 	<?php
 	$fragments['span.items'] = ob_get_clean();
 	return $fragments;
@@ -182,3 +201,25 @@ function fancy_lab_sidebars(){
 		'after_title'	=> '</h4>',
 	) );			
 }
+
+/**
+ * Adds custom classes to the array of body classes.
+ */
+function fancy_lab_body_classes( $classes ) {
+
+	// Adds a class of no-sidebar to sites without active sidebar.
+	if ( ! is_active_sidebar( 'fancy-lab-sidebar-1' ) ) {
+		$classes[] = 'no-sidebar';
+	}
+
+	if ( ! is_active_sidebar( 'fancy-lab-sidebar-shop' ) ) {
+		$classes[] = 'no-sidebar-shop';
+	}
+
+	if ( ! is_active_sidebar( 'fancy-lab-sidebar-footer1' ) && ! is_active_sidebar( 'fancy-lab-sidebar-footer2' ) && ! is_active_sidebar( 'fancy-lab-sidebar-footer3' ) ) {
+		$classes[] = 'no-sidebar-footer';
+	}
+
+	return $classes;
+}
+add_filter( 'body_class', 'fancy_lab_body_classes' );
