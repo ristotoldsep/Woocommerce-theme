@@ -202,6 +202,11 @@ function fancy_lab_sidebars(){
 	) );			
 }
 
+/** Backwards compapility for wp_body_open() function */
+if ( function_exists( 'wp_body_open' ) ) {
+	wp_body_open();
+}
+
 /**
  * Adds custom classes to the array of body classes.
  */
